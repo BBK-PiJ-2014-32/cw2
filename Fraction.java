@@ -89,14 +89,15 @@ public class Fraction {
         return new Fraction(num, denom);
     }
 	
-	public double absValue(){
-			double num1 = this.getNumerator();
-			double num2 = this.getDenominator();
-			double numFinal = num1/num2;
-			if (numFinal < 0){
-				numFinal = numFinal * -1;
-			}
-			return numFinal;
+	public Fraction absValue(){
+			int num = this.getNumerator();
+			int denom = this.getDenominator();
+			if (num < 0){
+				num = num * -1;
+			} else if(denom < 0){
+				denom = denom * -1;
+			} 
+			return new Fraction(num, denom);
 	}
 
 	public int negate(Fraction other){

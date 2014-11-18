@@ -100,8 +100,19 @@ public class Fraction {
 			return new Fraction(num, denom);
 	}
 
-	public int negate(Fraction other){
-		return 0;
+	public Fraction negate(){
+		int num = this.getNumerator();
+		int denom = this.getDenominator();
+		if (num < 0){
+			num = num * -1;
+		} else if(denom < 0){
+			denom = denom * -1;
+		} else if(num > 0){
+			num = num * -1;
+		} else if(denom < 0){
+			denom = denom * -1;
+		}
+		return new Fraction(num, denom);
 	}
 
     private int myGcd(int a, int b) {

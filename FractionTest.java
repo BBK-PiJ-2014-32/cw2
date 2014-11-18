@@ -12,8 +12,11 @@ public class FractionTest {
 	Fraction h = new Fraction(3,5);
 	Fraction i = new Fraction(-3,5);
 	Fraction j = i.absValue();
-	String str = j.toString();
-	System.out.println(str);
+	String strJ = j.toString();
+	System.out.println(strJ);
+	Fraction k = new Fraction(5,1);
+	String strK = k.toString();
+	System.out.println(strK);
 	if (!f.equals(g.multiply(h))) System.out.println("Multiply failed");
         // test equals
 	test(new Fraction(1, 2),new Fraction(1, 2),"error test 1");

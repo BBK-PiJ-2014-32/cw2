@@ -17,6 +17,10 @@ public class FractionTest {
 	Fraction k = new Fraction(5,1);
 	String strK = k.toString();
 	System.out.println(strK);
+	Fraction l = new Fraction(-5,1);
+	test1(new Fraction(-5,3));
+	test1(new Fraction(5,-3));
+	test1(new Fraction(5,3));
 	if (!f.equals(g.multiply(h))) System.out.println("Multiply failed");
         // test equals
 	test(new Fraction(1, 2),new Fraction(1, 2),"error test 1");
@@ -32,4 +36,11 @@ public class FractionTest {
     	if (! f1.equals(f2))
 		System.out.println(msg);
     }
+	
+	public static void test1(Fraction f1){
+		Fraction in = f1.negate();
+		String str = in.toString();
+		System.out.println(str);	
+	}
+
 }

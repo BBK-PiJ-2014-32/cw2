@@ -93,6 +93,9 @@ public class Fraction {
 			double num1 = this.getNumerator();
 			double num2 = this.getDenominator();
 			double numFinal = num1/num2;
+			if (numFinal < 0){
+				numFinal = numFinal * -1;
+			}
 			return numFinal;
 	}
 

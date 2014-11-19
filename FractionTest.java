@@ -29,18 +29,41 @@ public class FractionTest {
 	test(new Fraction(-1, -2),new Fraction(1, 2),"error test 4");
 	test(new Fraction(4, -8),new Fraction(1, -2),"error test 5");
 
-        // extend with extra tests
+	Fraction m = new Fraction(2,3);
+	Fraction n = new Fraction(2,4);
+	Fraction o = m.multiply(n);
+    String strO = m.toString();
+	System.out.println("1 " + strO);
+	Fraction p = new Fraction(3,5);
+	Fraction q = new Fraction(6,15);
+	Fraction r = p.divide(q);
+	String strR = r.toString();
+	System.out.println("2 " + strR);
+	Fraction s = new Fraction(1,5);
+	Fraction t = new Fraction(3,8);
+	Fraction u = s.addition(t);
+	String strU = u.toString();
+	System.out.println("3 " + strU);
+	Fraction v = new Fraction(3,10);
+	Fraction w = new Fraction(2,20);
+	Fraction x = v.subtraction(w);
+    String strX = x.toString();
+	System.out.println("4 " + strX);
+
+
     }
+
+
 
     static void test(Fraction f1, Fraction f2, String msg){
     	if (! f1.equals(f2))
 		System.out.println(msg);
     }
-	
+
 	public static void test1(Fraction f1){
 		Fraction in = f1.negate();
 		String str = in.toString();
-		System.out.println(str);	
+		System.out.println(str);
 	}
 
 }

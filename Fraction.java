@@ -7,7 +7,7 @@ public class Fraction {
 
     public Fraction(int num, int denom) {
         if (denom == 0) {
-            System.out.println("Invalid fraction with denominator 0"); 
+            System.out.println("Invalid fraction with denominator 0");
 	    // this should use exceptions
             return;
         }
@@ -67,11 +67,11 @@ public class Fraction {
         int denom = this.getDenominator() * other.getDenominator();
         return new Fraction(num, denom);
     }
-    
+
 	public Fraction divide(Fraction other) {
 
-        int num = this.getNumerator() / other.getNumerator();
-        int denom = this.getDenominator() / other.getDenominator();
+        int num = this.getNumerator() * other.getDenominator();
+        int denom = this.getDenominator() * other.getNumerator();
         return new Fraction(num, denom);
     }
 
@@ -88,7 +88,7 @@ public class Fraction {
         int denom = this.getDenominator() - other.getDenominator();
         return new Fraction(num, denom);
     }
-	
+
 	public Fraction absValue(){
 			int num = this.getNumerator();
 			int denom = this.getDenominator();
@@ -96,7 +96,7 @@ public class Fraction {
 				num = num * -1;
 			} else if(denom < 0){
 				denom = denom * -1;
-			} 
+			}
 			return new Fraction(num, denom);
 	}
 

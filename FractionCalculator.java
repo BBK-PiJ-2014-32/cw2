@@ -21,7 +21,7 @@ public class FractionCalculator{
 					}
 					return newFrac;
 		}
-		
+
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;
@@ -30,6 +30,7 @@ public class FractionCalculator{
 				a = str.charAt(j);
 					if (a == '/'){
 						newNumer = Integer.parseInt(str.substring(0,j));
+						return newNumer;
 					}
 				}
 			return newNumer;
@@ -42,6 +43,7 @@ public class FractionCalculator{
 				a = str.charAt(j);
 					if (a == '/'){
 						newDenom = Integer.parseInt(str.substring((j+1),str.length()));
+						return newDenom;
 					}
 				}
 			return newDenom;

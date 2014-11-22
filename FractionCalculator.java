@@ -1,16 +1,17 @@
 import java.util.StringTokenizer;
 
 public class FractionCalculator{
-
+	private Fraction fractionListStart = null;
 	private Fraction fraction;
 	private String inputString;
-	private String operand;
-	
+	private String operator;
+	private String nextOperator;
 
 		public FractionCalculator(){
 			this.fraction = null;
 			this.inputString = null;
-			this.operand = "";
+			this.operator = "";
+			this.nextOperator = "";
 			
 		}
 
@@ -20,7 +21,10 @@ public class FractionCalculator{
 			StringTokenizer st = new StringTokenizer(str, " ");
 						while (st.hasMoreTokens()){
 						String strIn = st.nextToken();
-						Fraction newFrac = new Fraction(newNumerator(strIn), newDenominator(strIn));
+						if (strIn.length() > 1){
+								Fraction newFrac = new Fraction(newNumerator(strIn), newDenominator(strIn));
+								return newFrac; 
+						}
 					}
 					return emptyFrac;
 		}
@@ -51,12 +55,40 @@ public class FractionCalculator{
 				}
 			return newDenom;
 		}
+		public Fraction getFraction(String str){
+			String[] splitFrac = str.split("\\s");
+				Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
+				fractionListStart = firstFrac;
+						for(int i = 1; i < splitFrac.length; i++){ 
+						if (splitFrac[i].length() <= 3){
+							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
+							newFrac.insert(newFrac);
+							return newFrac;
+						}
+					}return null;
+		}
+
+		public String getOperator(String str){
+			StringTokenizer st = new StringTokenizer(str, " ");
+						while (st.hasMoreTokens()){
+						String strIn = st.nextToken();
+						if (strIn.length() == 1){
+							operator = strIn;
+							return operator;
+						}
+					}return operator;
+				}
 
 		
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){
-			Fraction newFrac = null;
-			return newFrac;
+			this.getFraction(inputString);
+			String op = getOperator(inputString);
+			if (op.equals("+")){
+				Fraction newFrac = fraction.getNext().addition(fraction.getNext());
+				return newFrac;
+			}
+			return null;
 		}
 }

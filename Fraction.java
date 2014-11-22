@@ -82,8 +82,8 @@ public class Fraction {
 
     public Fraction addition(Fraction other) {
 
-        int num = this.getNumerator() + other.getNumerator();
-        int denom = this.getDenominator() + other.getDenominator();
+        int num = ((this.getNumerator() * other.getDenominator()) + (this.getDenominator() * other.getNumerator()));
+        int denom = this.getDenominator() * other.getDenominator();
         return new Fraction(num, denom);
     }
 

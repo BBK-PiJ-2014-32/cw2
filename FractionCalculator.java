@@ -18,6 +18,7 @@ public class FractionCalculator{
 			StringTokenizer st = new StringTokenizer(str, " ");
 						while (st.hasMoreTokens()){
 						String strIn = st.nextToken();
+
 					}
 					return newFrac;
 		}

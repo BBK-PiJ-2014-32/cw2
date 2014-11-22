@@ -141,6 +141,12 @@ public class Fraction {
 				}
 		}
 	
+	public Fraction retrieve(){
+				Fraction nextInLine = this.head;
+				this.head = this.head.getNext();
+				return nextInLine;
+						}
+	
 	public void setNext(Fraction frac){
 				if (this.next == null){
 						this.next = frac;

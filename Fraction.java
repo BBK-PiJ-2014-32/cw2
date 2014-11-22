@@ -130,6 +130,18 @@ public class Fraction {
     }
 	//Fraction list
 	public void insert(Fraction frac){
+				if (this.head == null){
+								this.head = frac;
+				} else {
+						if (this.head.getNext() == null){
+									this.head.setNext(frac);
+						} else {
+						  			this.head.setNext(frac);
+						}
+				}
+		}
+	
+	public void setNext(Fraction frac){
 				if (this.next == null){
 						this.next = frac;
 				} else {

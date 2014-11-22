@@ -10,6 +10,7 @@ public class Fraction {
     public Fraction(int num, int denom) {
 		this.head = head;
 		this.next = next;
+		
         if (denom == 0) {
             System.out.println("Invalid fraction with denominator 0");
 	    // this should use exceptions
@@ -129,24 +130,13 @@ public class Fraction {
     }
 	//Fraction list
 	public void insert(Fraction frac){
-				if (this.head == null){
-						this.head = frac;
-				} else {
-						if (this.head.getNext() == null){
-								this.head.setNext(frac);
-						} else {
-					  			this.head.setNext(frac);
-						}
-				}
-			}
-
-	public void setNext(Fraction frac) {
 				if (this.next == null){
 						this.next = frac;
 				} else {
-					  	this.next.setNext(frac);
+						this.next.insert(frac);
 				}
-		}
+			}
+
 	public Fraction getNext() {
 				return next;
 			    }

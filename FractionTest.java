@@ -2,6 +2,7 @@
  * Created by keith for the second coursework assignment.
  */
 public class FractionTest {
+	private Fraction fractionListStart = null;
     public static void main(String[] args) {
 
         // test divide by zero - should print an error and exit
@@ -49,7 +50,8 @@ public class FractionTest {
 	Fraction x = v.subtraction(w);
     String strX = x.toString();
 	System.out.println("4 " + strX);
-
+	FractionTest FT1 = new FractionTest();
+	FT1.run();
 
     }
 
@@ -65,5 +67,16 @@ public class FractionTest {
 		String str = in.toString();
 		System.out.println(str);
 	}
-
+ 		public void run(){
+		Fraction test4 = new Fraction (2, 4);
+		fractionListStart = test4;
+		Fraction test5 = new Fraction (5, 3);
+		fractionListStart.insert(test5);
+		Fraction test6 = new Fraction (7, 2);
+		fractionListStart.insert(test6);
+		System.out.println(test4.getNext());
+		System.out.println(test5.getNext());
+		System.out.println(test6.getNext());
+		
+ }
 }

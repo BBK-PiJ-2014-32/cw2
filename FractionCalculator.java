@@ -55,14 +55,18 @@ public class FractionCalculator{
 				}
 			return newDenom;
 		}
-		public Fraction getFraction(String str){
-			String[] splitFrac = str.split("\\s");
+		public Fraction getFirstFraction(String str){
+			String[] splitFrac = str.split("\\s+");
 				Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
-				fractionListStart = firstFrac;
+				return firstFrac;
+			}
+		
+		public Fraction getNextFraction(String str){
+			String[] splitFrac = str.split("\\s+");
 						for(int i = 1; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() <= 3){
+						if (splitFrac[i].length() >= 3){
 							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
-							newFrac.insert(newFrac);
+							//newFrac.insert(newFrac);
 							return newFrac;
 						}
 					}return null;
@@ -83,12 +87,39 @@ public class FractionCalculator{
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){
-			this.getFraction(inputString);
+
 			String op = getOperator(inputString);
+			
 			if (op.equals("+")){
-				Fraction newFrac = fraction.getNext().addition(fraction.getNext());
-				return newFrac;
+				Fraction newFrac = getFirstFraction(inputString);
+				System.out.println(newFrac);
+				Fraction nextFrac = getNextFraction(inputString);
+				System.out.println(nextFrac);
+				Fraction calFrac = newFrac.addition(nextFrac);
+				return calFrac;
+			} else if (op.equals("-")){
+				Fraction newFrac = getFirstFraction(inputString);
+				System.out.println(newFrac);
+				Fraction nextFrac = getNextFraction(inputString);
+				System.out.println(nextFrac);
+				Fraction calFrac = newFrac.subtraction(nextFrac);
+				return calFrac;
+			}else if (op.equals("/")){
+				Fraction newFrac = getFirstFraction(inputString);
+				System.out.println(newFrac);
+				Fraction nextFrac = getNextFraction(inputString);
+				System.out.println(nextFrac);
+				Fraction calFrac = newFrac.divide(nextFrac);
+				return calFrac;
+			}else if (op.equals("*")){
+				Fraction newFrac = getFirstFraction(inputString);
+				System.out.println(newFrac);
+				Fraction nextFrac = getNextFraction(inputString);
+				System.out.println(nextFrac);
+				Fraction calFrac = newFrac.multiply(nextFrac);
+				return calFrac;
 			}
+			
 			return null;
 		}
 }

@@ -5,24 +5,26 @@ public class FractionCalculator{
 	private Fraction fraction;
 	private String inputString;
 	private String operand;
+	
 
 		public FractionCalculator(){
 			this.fraction = null;
 			this.inputString = null;
 			this.operand = "";
+			
 		}
 
 		//method to split string.
 		public Fraction splitString (String str){
-			Fraction newFrac = null;
+			Fraction emptyFrac = null;
 			StringTokenizer st = new StringTokenizer(str, " ");
 						while (st.hasMoreTokens()){
 						String strIn = st.nextToken();
-
+						Fraction newFrac = new Fraction(newNumerator(strIn), newDenominator(strIn));
 					}
-					return newFrac;
+					return emptyFrac;
 		}
-		
+
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;
@@ -31,6 +33,7 @@ public class FractionCalculator{
 				a = str.charAt(j);
 					if (a == '/'){
 						newNumer = Integer.parseInt(str.substring(0,j));
+						return newNumer;
 					}
 				}
 			return newNumer;
@@ -43,12 +46,13 @@ public class FractionCalculator{
 				a = str.charAt(j);
 					if (a == '/'){
 						newDenom = Integer.parseInt(str.substring((j+1),str.length()));
+						return newDenom;
 					}
 				}
 			return newDenom;
 		}
 
-
+		
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){

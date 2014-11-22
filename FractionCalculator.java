@@ -15,20 +15,6 @@ public class FractionCalculator{
 			
 		}
 
-		//method to split string.
-		public Fraction splitString (String str){
-			Fraction emptyFrac = null;
-			StringTokenizer st = new StringTokenizer(str, " ");
-						while (st.hasMoreTokens()){
-						String strIn = st.nextToken();
-						if (strIn.length() > 1){
-								Fraction newFrac = new Fraction(newNumerator(strIn), newDenominator(strIn));
-								return newFrac; 
-						}
-					}
-					return emptyFrac;
-		}
-
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;

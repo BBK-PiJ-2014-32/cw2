@@ -45,8 +45,8 @@ public class FractionTest {
 	Fraction u = s.addition(t);
 	String strU = u.toString();
 	System.out.println("3 " + strU);
-	Fraction v = new Fraction(3,10);
-	Fraction w = new Fraction(2,20);
+	Fraction v = new Fraction(3,4);
+	Fraction w = new Fraction(1,2);
 	Fraction x = v.subtraction(w);
     String strX = x.toString();
 	System.out.println("4 " + strX);
@@ -77,6 +77,7 @@ public class FractionTest {
 		System.out.println(test4.getNext());
 		System.out.println(test5.getNext());
 		System.out.println(test6.getNext());
+		
 		
  }
 }

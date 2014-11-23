@@ -20,28 +20,32 @@ public class FractionCalculatorTest{
 		Fraction test5 = FC1.getSecondFraction(str4);
 		String str6 = test5.toString();
 		System.out.println("test5 = " + str6);
-		Fraction test6 = FC1.evaluate(a, str4);
-	   	String str7 = test6.toString();
-		System.out.println(str4 + " = " + str7);
-		Fraction test7 = FC1.evaluate(a, "6/13 - 3/7");
-	    String str8 = test7.toString();
-		System.out.println("6/13 - 3/7 = " + str8);
-		Fraction test8 = FC1.evaluate(a, "6/10 * 2/3");
-	    String str9 = test8.toString();
-		System.out.println("6/10 * 2/3 = " + str9);
-		Fraction test9 = FC1.evaluate(a, "2/3 / 2/5");
-	    String str10 = test9.toString();
-		System.out.println("2/3 / 2/5 = " + str10);
-		String test10 = "9/10 / 8/15 + 1/2";
-		String str11 = FC1.splitFirstThree(test10);
-		System.out.println(str11);
-		Fraction test12 = FC1.getFirstFraction(str11);
-		String str12 = test12.toString();
-		System.out.println("test12 = " + str12);
-		Fraction test13 = FC1.getSecondFraction(str11);
-		String str13 = test13.toString();
-		System.out.println("test13 = " + str13);
-		
+		//Fraction test6 = FC1.evaluate(a, str4);
+	   	//String str7 = test6.toString();
+		//System.out.println(str4 + " = " + str7);
+		//Fraction test7 = FC1.evaluate(a, "6/13 - 3/7");
+	    //String str8 = test7.toString();
+		//System.out.println("6/13 - 3/7 = " + str8);
+		//Fraction test8 = FC1.evaluate(a, "6/10 * 2/3");
+	    //String str9 = test8.toString();
+		//System.out.println("6/10 * 2/3 = " + str9);
+		//Fraction test9 = FC1.evaluate(a, "2/3 / 2/5");
+	    //String str10 = test9.toString();
+		//System.out.println("2/3 / 2/5 = " + str10);
+		//String test10 = "9/10 / 8/15 + 1/2";
+		//String str11 = FC1.splitFirstThree(test10);
+		//System.out.println(str11);
+		//Fraction test12 = FC1.getFirstFraction(str11);
+		//String str12 = test12.toString();
+		//System.out.println("test12 = " + str12);
+		//Fraction test13 = FC1.getSecondFraction(str11);
+		//String str13 = test13.toString();
+		//System.out.println("test13 = " + str13);
+		String str14 = "9/10 / 8/15 + 1/2";
+		FC1.addFractions(str14);
+		System.out.println(FC1.getNextFrac());
+		System.out.println(FC1.getNextFrac());
+		System.out.println(FC1.getNextFrac());
 		
 	 }
 	 

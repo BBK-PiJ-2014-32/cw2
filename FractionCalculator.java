@@ -48,21 +48,34 @@ public class FractionCalculator{
 			 	   	String inputString = System.console().readLine();
 					int x = inputStringLength(inputString);
 					if (x == 3){
+							System.out.println("main - 1");
 							Fraction a = evaluate(fractionRes, inputString);
 							String outputString = a.toString();
 			 				System.out.println(a);
 					} else if (x == 2){
+							System.out.println("main - 2");
 							Fraction a = evaluate(fractionRes, inputString);
 							String outputString = a.toString();
 			 				System.out.println(a);
-					} else if (x == 1 && inputString.length() == 1 && !inputString.equals("Q")){
+					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && !inputString.equals("Q")){
+							System.out.println("main - 3a");
+							evaluate(fractionRes, inputString);
+					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && !inputString.equals("A")){
+							System.out.println("main - 3b");
 							evaluate(fractionRes, inputString);
 					} else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == true){
+							System.out.println("main - 4");
 							Fraction a = evaluate(fractionRes, inputString);
-					} else if (x == 1 && inputString.length() >= 3 && isOpEmpty() == true){
+					} else if ((x == 1 && inputString.length() == 1 && isOpEmpty() == false) && !inputString.equals("Q")){
+							System.out.println("main - 5");
 							Fraction a = evaluate(fractionRes, inputString);
 					}else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == false){
- 							Fraction a = evaluate(fractionRes, inputString);
+ 							System.out.println("main - 6");
+							Fraction a = evaluate(fractionRes, inputString);
+							String outputString = a.toString();
+			 				System.out.println(a);
+					}else if (inputString.equals("A")){
+							Fraction a = evaluate(fractionRes, inputString);
 							String outputString = a.toString();
 			 				System.out.println(a);
 					}else if (inputString.equals("Q")){
@@ -175,6 +188,11 @@ public class FractionCalculator{
 					iterator.remove();
 					return str;
 		} 
+		public String getNextOpNoDel(){
+			        Iterator<String> iterator = operatorList.iterator();
+					String str = iterator.next();
+					return str;
+		} 
 		public boolean isFracEmpty(){
 			        Iterator<String> iterator = fractionList.iterator();
 					if (iterator.hasNext() == true){
@@ -216,7 +234,8 @@ public class FractionCalculator{
 				Fraction calFrac = newFrac.multiply(nextFrac);
 				fractionRes = calFrac;
 				return calFrac;
-			} return null;
+			}
+			 return null;
 		}
 	
 		public Fraction nextCal(Fraction fraction){
@@ -251,19 +270,30 @@ public class FractionCalculator{
 			addOperators(inputString);
 			int x  = inputStringLength(inputString);
 			if (fraction == null && x == 3){
+				System.out.println("evaluate - 1");
 				Fraction calFrac = firstCal();
 				return calFrac;
 			} else if (fraction != null && x >= 2){
+				System.out.println("evaluate - 2");
 				Fraction calFrac = nextCal(fraction);
 				return calFrac;
-			} else if (x == 1 && inputString.length() == 1){
+			} else if (x == 1 && inputString.length() == 1 && !inputString.equals("A")){
+				System.out.println("evaluate - 3");
 				return null;
-			} else if (x == 1 && inputString.length() >= 3){
+			} else if (fraction == null && x == 1 && inputString.length() >= 3){
+				System.out.println("evaluate - 4");
+				Fraction newFrac = new Fraction(newNumerator(inputString), newDenominator(inputString));
+				fractionRes = newFrac;
 				return null;
 			} else if (fraction != null && inputString.length() >= 3){
+				System.out.println("evaluate - 5");
+				getNextFrac();
 				Fraction calFrac = nextCal(fraction);
 				return calFrac;
-			}
-			return null;
+			}else if (inputString.equals("A")){
+				Fraction calFrac = fractionRes.absValue();
+				fractionRes = calFrac;
+				return calFrac;
+			}return null;
 		}
 }

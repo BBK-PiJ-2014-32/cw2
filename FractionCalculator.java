@@ -1,21 +1,28 @@
 import java.util.StringTokenizer;
 import java.util.LinkedList;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 
 public class FractionCalculator{
 	private Fraction fractionListStart = null;
 	private Fraction fraction;
 	private String operator;
 	private String nextOperator;
-	private String[] fractionList = new String[10];
-	private String[] operatorList = new String[10];
+	private String[] fractionArr = new String[10];
+	private String[] operatorArr = new String[10];
+	private ArrayList<String> fractionList = new ArrayList<String>();
+	private ArrayList<String> operatorList = new ArrayList<String>();
 	
 		public FractionCalculator(){
-			this.fractionList = fractionList;
-			this.operatorList = operatorList; 
 			this.fraction = fraction;
 			this.operator = "";
 			this.nextOperator = "";
+			this.fractionArr = fractionArr;
+			this.operatorArr = operatorArr;
+			this.fractionList = fractionList;
+			this.operatorList = operatorList; 
 			
 		}
 
@@ -84,7 +91,7 @@ public class FractionCalculator{
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
-							fractionList[i] = splitFrac[i];
+							fractionList.add(splitFrac[i]);
 						}
 					}
 		}
@@ -92,10 +99,11 @@ public class FractionCalculator{
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
-							operatorList[i] = splitFrac[i];
+							operatorList.add(splitFrac[i]);
 						}
 					}
 		}
+		
 		public String getOperator(String str){
 			StringTokenizer st = new StringTokenizer(str, " ");
 						while (st.hasMoreTokens()){
@@ -106,14 +114,19 @@ public class FractionCalculator{
 						}
 					}return operator;
 				}
-
-		//public void fracList(Fraction frac){
-		//	fractionList.add(frac);
-		//}
-		//public Fraction fracListNext(){
-		//	Fraction newFrac = fractionList.poll();
-		//	return newFrac;
-		//}
+		
+		public String getNextFrac(){
+			        Iterator<String> iterator = fractionList.iterator();
+					String str = iterator.next();
+					return str;
+		} 
+		
+		public String getNextOp(){
+			        Iterator<String> iterator = operatorList.iterator();
+					String str = iterator.next();
+					return str;
+		} 
+		
 		
 	
 

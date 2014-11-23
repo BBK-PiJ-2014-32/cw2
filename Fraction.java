@@ -4,12 +4,8 @@
 public class Fraction {
     private int numerator;
     private int denominator;
-	private Fraction head = null;
-	private Fraction next = null;
 
     public Fraction(int num, int denom) {
-		this.head = head;
-		this.next = next;
 		
         if (denom == 0) {
             System.out.println("Invalid fraction with denominator 0");
@@ -128,16 +124,4 @@ public class Fraction {
         }
         return a;
     }
-	//Fraction list
-	public void insert(Fraction frac){
-		if (this.next == null){
-				this.next = frac;
-		} else {
-				this.next.insert(frac);
-		}
-	}
-
-	public Fraction getNext() {
-				return next;
-			    }
 }

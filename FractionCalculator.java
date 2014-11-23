@@ -1,15 +1,14 @@
 import java.util.StringTokenizer;
+import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class FractionCalculator{
 	private Fraction fractionListStart = null;
-	private Fraction fraction;
-	private String inputString;
 	private String operator;
 	private String nextOperator;
-
+	private LinkedList<Fraction> fractionList = new LinkedList<Fraction>();
 		public FractionCalculator(){
-			this.fraction = null;
-			this.inputString = null;
+			this.fractionList = fractionList;
 			this.operator = "";
 			this.nextOperator = "";
 			
@@ -43,11 +42,16 @@ public class FractionCalculator{
 		}
 		public Fraction getFirstFraction(String str){
 			String[] splitFrac = str.split("\\s+");
-				Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
-				return firstFrac;
+				for(int i = 1; i < splitFrac.length; i++){ 
+						if (splitFrac[i].length() >= 3){
+								Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
+								fracList(firstFrac);
+								return firstFrac;
+							}
+					} return null;
 			}
 		
-		public Fraction getNextFraction(String str){
+		public Fraction getSecondFraction(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 1; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
@@ -57,7 +61,33 @@ public class FractionCalculator{
 						}
 					}return null;
 		}
-
+		//counts the number of elements in the the input string.
+		public int inputStringlength(String str){
+			String[] splitFrac = str.split("\\s+");
+			return splitFrac.length;
+		}
+		//returns a new string of just the first elements when the user inputs more than 3 elements.
+		public String splitFirstThree(String str){
+			String newStr = "";
+			String[] splitFrac = str.split("\\s+");
+			if (splitFrac.length > 3){
+				for(int i = 0; i < 3; i++){
+					newStr = newStr + " " + splitFrac[i];
+					newStr = newStr.trim();	
+					}	
+			}return newStr;
+		}
+		
+		public Fraction addFraction(String str){
+			String[] splitFrac = str.split("\\s+");
+						for(int i = 0; i < splitFrac.length; i++){ 
+						if (splitFrac[i].length() >= 3){
+							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
+							fracList(newFrac);
+							return newFrac;
+						}
+					}return null;
+		}
 		public String getOperator(String str){
 			StringTokenizer st = new StringTokenizer(str, " ");
 						while (st.hasMoreTokens()){
@@ -69,38 +99,42 @@ public class FractionCalculator{
 					}return operator;
 				}
 
-		
+		public void fracList(Fraction frac){
+			fractionList.add(frac);
+		}
+		public Fraction fracListNext(){
+			Fraction newFrac = fractionList.poll();
+			return newFrac;
+		}
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){
-
+			addFraction(inputString);
 			String op = getOperator(inputString);
 			
 			if (op.equals("+")){
-				Fraction newFrac = getFirstFraction(inputString);
-				System.out.println(newFrac);
-				Fraction nextFrac = getNextFraction(inputString);
-				System.out.println(nextFrac);
+				Fraction newFrac = fracListNext();
+				Fraction nextFrac = fracListNext();
 				Fraction calFrac = newFrac.addition(nextFrac);
 				return calFrac;
 			} else if (op.equals("-")){
 				Fraction newFrac = getFirstFraction(inputString);
 				System.out.println(newFrac);
-				Fraction nextFrac = getNextFraction(inputString);
+				Fraction nextFrac = getSecondFraction(inputString);
 				System.out.println(nextFrac);
 				Fraction calFrac = newFrac.subtraction(nextFrac);
 				return calFrac;
 			}else if (op.equals("/")){
 				Fraction newFrac = getFirstFraction(inputString);
 				System.out.println(newFrac);
-				Fraction nextFrac = getNextFraction(inputString);
+				Fraction nextFrac = getSecondFraction(inputString);
 				System.out.println(nextFrac);
 				Fraction calFrac = newFrac.divide(nextFrac);
 				return calFrac;
 			}else if (op.equals("*")){
 				Fraction newFrac = getFirstFraction(inputString);
 				System.out.println(newFrac);
-				Fraction nextFrac = getNextFraction(inputString);
+				Fraction nextFrac = getSecondFraction(inputString);
 				System.out.println(nextFrac);
 				Fraction calFrac = newFrac.multiply(nextFrac);
 				return calFrac;

@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FractionCalculator{
-	private Fraction fractionListStart = null;
 	private Fraction fraction;
+	private Fraction fractionRes;
 	private String operator;
 	private String nextOperator;
 	private String[] fractionArr = new String[10];
@@ -17,6 +17,7 @@ public class FractionCalculator{
 	
 		public FractionCalculator(){
 			this.fraction = fraction;
+			this.fractionRes = fractionRes;
 			this.operator = "";
 			this.nextOperator = "";
 			this.fractionArr = fractionArr;
@@ -38,12 +39,30 @@ public class FractionCalculator{
 			 System.out.println("fractions should have no space between them like and ");
 			 System.out.println("any operators should be preceeded and followed by a ");
 			 System.out.println("space. The absolute value of a fraction can be found by");
-			 System.out.println("typing Abs, to negate the fraction type neg, to clear ");
-			 System.out.println("the value in the calculator input clr and to quit type q.");
+			 System.out.println("typing A, to negate the fraction type N, to clear ");
+			 System.out.println("the value in the calculator input clr and to quit type Q.");
 			 System.out.println("--------------------------------------------------------");
 			 System.out.println("Please type your first input to start");
-			 String inputString = System.console().readLine();
-			 
+			 boolean finished = false;
+			 	while (!finished){
+			 	   	String inputString = System.console().readLine();
+					int x = inputStringLength(inputString);
+					if (x == 3){
+							Fraction a = evaluate(fractionRes, inputString);
+							String outputString = a.toString();
+			 				System.out.println(a);
+					} else if (x == 2){
+							Fraction a = evaluate(fractionRes, inputString);
+							String outputString = a.toString();
+			 				System.out.println(a);
+					} else if (x == 1 && inputString.length() == 1){
+						evaluate(fractionRes, inputString);
+					} else if (x == 1 && inputString.length() >= 3){
+						Fraction a = evaluate(fractionRes, inputString);
+						String outputString = a.toString();
+		 				System.out.println(a);
+					}
+				}
 		 }
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
@@ -71,27 +90,29 @@ public class FractionCalculator{
 				}
 			return newDenom;
 		}
-		public Fraction getFirstFraction(String str){
-			String[] splitFrac = str.split("\\s+");
-				for(int i = 1; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() >= 3){
-								Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
+		public Fraction getFirstFraction(){
+			//String[] splitFrac = str.split("\\s+");
+				//for(int i = 1; i < splitFrac.length; i++){ 
+					String str = getNextFrac();
+						if (str.length() >= 3){
+								Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
 								return firstFrac;
-							}
+								//}
 					} return null;
 			}
 		
-		public Fraction getSecondFraction(String str){
-			String[] splitFrac = str.split("\\s+");
-						for(int i = 1; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() >= 3){
-							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
+		public Fraction getSecondFraction(){
+			//String[] splitFrac = str.split("\\s+");
+			//			for(int i = 1; i < splitFrac.length; i++){ 
+				String str = getNextFrac();
+						if (str.length() >= 3){
+							Fraction newFrac = new Fraction(newNumerator(str), newDenominator(str));
 							return newFrac;
-						}
+							//}
 					}return null;
 		}
 		//counts the number of elements in the the input string.
-		public int inputStringlength(String str){
+		public int inputStringLength(String str){
 			String[] splitFrac = str.split("\\s+");
 			return splitFrac.length;
 		}
@@ -117,7 +138,7 @@ public class FractionCalculator{
 		public void addOperators(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() >= 3){
+						if (splitFrac[i].length() == 1){
 							operatorList.add(splitFrac[i]);
 						}
 					}
@@ -148,42 +169,72 @@ public class FractionCalculator{
 					return str;
 		} 
 		
-		
+		public Fraction firstCal(){
+			String op = getNextOp();
+			if (op.equals("+")){
+				Fraction newFrac = getFirstFraction();
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = newFrac.addition(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			} else if (op.equals("-")){
+				Fraction newFrac = getFirstFraction();
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = newFrac.subtraction(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			}else if (op.equals("/")){
+				Fraction newFrac = getFirstFraction();
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = newFrac.divide(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			}else if (op.equals("*")){
+				Fraction newFrac = getFirstFraction();
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = newFrac.multiply(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			} return null;
+		}
+	
+		public Fraction nextCal(Fraction fraction){
+			String op = getNextOp();
+			if (op.equals("+")){
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = fraction.addition(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			} else if (op.equals("-")){
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = fraction.subtraction(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			}else if (op.equals("/")){
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = fraction.divide(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			}else if (op.equals("*")){
+				Fraction nextFrac = getSecondFraction();
+				Fraction calFrac = fraction.multiply(nextFrac);
+				fractionRes = calFrac;
+				return calFrac;
+			} return null;
+		}
 	
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){
 			addFractions(inputString);
-			String op = getOperator(inputString);
-			
-			if (op.equals("+")){
-				Fraction newFrac = getFirstFraction(inputString);
-				Fraction nextFrac = getSecondFraction(inputString);
-				Fraction calFrac = newFrac.addition(nextFrac);
+			addOperators(inputString);
+			if (fraction == null){
+				Fraction calFrac = firstCal();
 				return calFrac;
-			} else if (op.equals("-")){
-				Fraction newFrac = getFirstFraction(inputString);
-				System.out.println(newFrac);
-				Fraction nextFrac = getSecondFraction(inputString);
-				System.out.println(nextFrac);
-				Fraction calFrac = newFrac.subtraction(nextFrac);
+			} else if (fraction != null){
+				Fraction calFrac = nextCal(fraction);
 				return calFrac;
-			}else if (op.equals("/")){
-				Fraction newFrac = getFirstFraction(inputString);
-				System.out.println(newFrac);
-				Fraction nextFrac = getSecondFraction(inputString);
-				System.out.println(nextFrac);
-				Fraction calFrac = newFrac.divide(nextFrac);
-				return calFrac;
-			}else if (op.equals("*")){
-				Fraction newFrac = getFirstFraction(inputString);
-				System.out.println(newFrac);
-				Fraction nextFrac = getSecondFraction(inputString);
-				System.out.println(nextFrac);
-				Fraction calFrac = newFrac.multiply(nextFrac);
-				return calFrac;
-			} 
-			
+			}
 			return null;
 		}
 }

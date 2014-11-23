@@ -118,12 +118,14 @@ public class FractionCalculator{
 		public String getNextFrac(){
 			        Iterator<String> iterator = fractionList.iterator();
 					String str = iterator.next();
+					iterator.remove();
 					return str;
 		} 
 		
 		public String getNextOp(){
 			        Iterator<String> iterator = operatorList.iterator();
 					String str = iterator.next();
+					iterator.remove();
 					return str;
 		} 
 		

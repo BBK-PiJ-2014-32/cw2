@@ -25,7 +25,26 @@ public class FractionCalculator{
 			this.operatorList = operatorList; 
 			
 		}
-
+		
+		 public static void main(String[] args) {
+		 	FractionCalculator FC1 = new FractionCalculator();
+			FC1.run();
+		 }
+		 
+		 public void run(){
+			 System.out.println("--------------------------------------------------------");
+			 System.out.println("Hello, welcome to Phil Hannant's Fraction Calculator!");
+			 System.out.println("To start please enter your first fraction calculation,");
+			 System.out.println("fractions should have no space between them like and ");
+			 System.out.println("any operators should be preceeded and followed by a ");
+			 System.out.println("space. The absolute value of a fraction can be found by");
+			 System.out.println("typing Abs, to negate the fraction type neg, to clear ");
+			 System.out.println("the value in the calculator input clr and to quit type q.");
+			 System.out.println("--------------------------------------------------------");
+			 System.out.println("Please type your first input to start");
+			 String inputString = System.console().readLine();
+			 
+		 }
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;

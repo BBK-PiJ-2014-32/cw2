@@ -50,10 +50,13 @@ public class FractionCalculator{
 					if (inputString.equals("Q")){
 							System.out.println("Goodbye!");
 							finished = true;
-					}else if (inputString.equals("A")){
+					} else if (inputString.equals("A")){
 							Fraction f1 = evaluate(fractionRes, inputString);
 							String outputString = f1.toString();
 				 			System.out.println(outputString);		
+					} else if (inputString.equals("C")){
+							Fraction f1 = evaluate(fractionRes, inputString);
+							System.out.println(fractionRes);
 					} else if (x == 3){
 							System.out.println("main - 1");
 							Fraction f1 = evaluate(fractionRes, inputString);
@@ -76,7 +79,7 @@ public class FractionCalculator{
 					} else if ((x == 1 && inputString.length() == 1 && isOpEmpty() == false) && !inputString.equals("Q")){
 							System.out.println("main - 5");
 							Fraction f1 = evaluate(fractionRes, inputString);
-					}else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == false){
+					} else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == false){
  							System.out.println("main - 6");
 							Fraction f1 = evaluate(fractionRes, inputString);
 							String outputString = f1.toString();
@@ -278,7 +281,16 @@ public class FractionCalculator{
 				System.out.println("evaluate - 2");
 				Fraction calFrac = nextCal(fraction);
 				return calFrac;
-			} else if (x == 1 && inputString.length() == 1 && !inputString.equals("A")){
+			}else if (inputString.equals("A")){
+				Fraction calFrac = fractionRes.absValue();
+				fractionRes = calFrac;
+				return calFrac;
+			}else if (inputString.equals("C")){
+				fractionRes = null;
+				fractionList.clear();
+				operatorList.clear();
+				return null;			
+			} else if (x == 1 && inputString.length() == 1){
 				System.out.println("evaluate - 3");
 				return null;
 			} else if (fraction == null && x == 1 && inputString.length() >= 3){
@@ -290,10 +302,6 @@ public class FractionCalculator{
 				System.out.println("evaluate - 5");
 				getNextFrac();
 				Fraction calFrac = nextCal(fraction);
-				return calFrac;
-			}else if (inputString.equals("A")){
-				Fraction calFrac = fractionRes.absValue();
-				fractionRes = calFrac;
 				return calFrac;
 			}System.out.println("At end");
 			return null;

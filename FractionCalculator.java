@@ -4,11 +4,16 @@ import java.util.ArrayList;
 
 public class FractionCalculator{
 	private Fraction fractionListStart = null;
+	private Fraction fraction;
 	private String operator;
 	private String nextOperator;
-	private LinkedList<Fraction> fractionList = new LinkedList<Fraction>();
+	private String[] fractionList = new String[10];
+	private String[] operatorList = new String[10];
+	
 		public FractionCalculator(){
 			this.fractionList = fractionList;
+			this.operatorList = operatorList; 
+			this.fraction = fraction;
 			this.operator = "";
 			this.nextOperator = "";
 			
@@ -45,7 +50,6 @@ public class FractionCalculator{
 				for(int i = 1; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
 								Fraction firstFrac = new Fraction(newNumerator(splitFrac[0]), newDenominator(splitFrac[0]));
-								fracList(firstFrac);
 								return firstFrac;
 							}
 					} return null;
@@ -56,7 +60,6 @@ public class FractionCalculator{
 						for(int i = 1; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
 							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
-							//newFrac.insert(newFrac);
 							return newFrac;
 						}
 					}return null;
@@ -77,16 +80,21 @@ public class FractionCalculator{
 					}	
 			}return newStr;
 		}
-		
-		public Fraction addFraction(String str){
+		public void addFractions(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
 						if (splitFrac[i].length() >= 3){
-							Fraction newFrac = new Fraction(newNumerator(splitFrac[i]), newDenominator(splitFrac[i]));
-							fracList(newFrac);
-							return newFrac;
+							fractionList[i] = splitFrac[i];
 						}
-					}return null;
+					}
+		}
+		public void addOperators(String str){
+			String[] splitFrac = str.split("\\s+");
+						for(int i = 0; i < splitFrac.length; i++){ 
+						if (splitFrac[i].length() >= 3){
+							operatorList[i] = splitFrac[i];
+						}
+					}
 		}
 		public String getOperator(String str){
 			StringTokenizer st = new StringTokenizer(str, " ");
@@ -99,22 +107,24 @@ public class FractionCalculator{
 					}return operator;
 				}
 
-		public void fracList(Fraction frac){
-			fractionList.add(frac);
-		}
-		public Fraction fracListNext(){
-			Fraction newFrac = fractionList.poll();
-			return newFrac;
-		}
+		//public void fracList(Fraction frac){
+		//	fractionList.add(frac);
+		//}
+		//public Fraction fracListNext(){
+		//	Fraction newFrac = fractionList.poll();
+		//	return newFrac;
+		//}
+		
+	
 
 	//Method to evaulate user fraction input.
 	public Fraction evaluate(Fraction fraction, String inputString){
-			addFraction(inputString);
+			addFractions(inputString);
 			String op = getOperator(inputString);
 			
 			if (op.equals("+")){
-				Fraction newFrac = fracListNext();
-				Fraction nextFrac = fracListNext();
+				Fraction newFrac = getFirstFraction(inputString);
+				Fraction nextFrac = getSecondFraction(inputString);
 				Fraction calFrac = newFrac.addition(nextFrac);
 				return calFrac;
 			} else if (op.equals("-")){
@@ -138,7 +148,7 @@ public class FractionCalculator{
 				System.out.println(nextFrac);
 				Fraction calFrac = newFrac.multiply(nextFrac);
 				return calFrac;
-			}
+			} 
 			
 			return null;
 		}

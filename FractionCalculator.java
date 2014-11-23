@@ -57,12 +57,14 @@ public class FractionCalculator{
 			 				System.out.println(a);
 					} else if (x == 1 && inputString.length() == 1 && !inputString.equals("Q")){
 							evaluate(fractionRes, inputString);
-					} else if (x == 1 && inputString.length() >= 3 && popNextOp().equals(null)){
+					} else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == true){
 							Fraction a = evaluate(fractionRes, inputString);
-					} else if (x == 1 && inputString.length() >= 3 && !popNextOp().equals(null)){
+					} else if (x == 1 && inputString.length() >= 3 && isOpEmpty() == true){
 							Fraction a = evaluate(fractionRes, inputString);
-					
-					
+					}else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == false){
+ 							Fraction a = evaluate(fractionRes, inputString);
+							String outputString = a.toString();
+			 				System.out.println(a);
 					}else if (inputString.equals("Q")){
 							System.out.println("Goodbye!");
 							finished = true;
@@ -173,16 +175,20 @@ public class FractionCalculator{
 					iterator.remove();
 					return str;
 		} 
-		public String popNextFrac(){
+		public boolean isFracEmpty(){
 			        Iterator<String> iterator = fractionList.iterator();
-					String str = iterator.next();
-					return str;
+					if (iterator.hasNext() == true){
+						return false;
+					} else
+					return true;
 		} 
 		
-		public String popNextOp(){
+		public boolean isOpEmpty(){
 			        Iterator<String> iterator = operatorList.iterator();
-					String str = iterator.next();
-					return str;
+					if (iterator.hasNext() == true){
+						return false;
+					} else
+					return true;
 		} 
 		public Fraction firstCal(){
 			String op = getNextOp();

@@ -41,6 +41,8 @@ public class FractionCalculatorTest{
 	//	Fraction test13 = FC1.getSecondFraction();
 		//String str13 = test13.toString();
 		//System.out.println("test13 = " + str13);
+		System.out.println(FC1.isFracEmpty());
+		System.out.println(FC1.isOpEmpty());
 		String str14 = "9/10 / 8/15 + 1/2";
 		FC1.addFractions(str14);
 		FC1.addOperators(str14);

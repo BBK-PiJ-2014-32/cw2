@@ -55,12 +55,15 @@ public class FractionCalculator{
 							Fraction a = evaluate(fractionRes, inputString);
 							String outputString = a.toString();
 			 				System.out.println(a);
-					} else if (x == 1 && inputString.length() == 1){
-						evaluate(fractionRes, inputString);
+					} else if (x == 1 && inputString.length() == 1 && !inputString.equals("Q")){
+							evaluate(fractionRes, inputString);
 					} else if (x == 1 && inputString.length() >= 3){
-						Fraction a = evaluate(fractionRes, inputString);
-						String outputString = a.toString();
-		 				System.out.println(a);
+							Fraction a = evaluate(fractionRes, inputString);
+							String outputString = a.toString();
+		 					System.out.println(a);
+					} else if(inputString.equals("Q")){
+							System.out.println("Goodbye!");
+							finished = true;
 					}
 				}
 		 }
@@ -228,10 +231,16 @@ public class FractionCalculator{
 	public Fraction evaluate(Fraction fraction, String inputString){
 			addFractions(inputString);
 			addOperators(inputString);
+			int x  = inputStringLength(inputString);
 			if (fraction == null){
 				Fraction calFrac = firstCal();
 				return calFrac;
-			} else if (fraction != null){
+			} else if (fraction != null && x >= 2){
+				Fraction calFrac = nextCal(fraction);
+				return calFrac;
+			} else if (x == 1){
+				return null;
+			} else if (fraction != null && inputString.length() >= 3){
 				Fraction calFrac = nextCal(fraction);
 				return calFrac;
 			}

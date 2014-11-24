@@ -94,7 +94,7 @@ public class FractionCalculator{
 		 public void printOutRes(Fraction fraction){
 			 if (fraction != null){
 					String outputString = fraction.toString();
- 					System.out.println(outputString);
+ 					System.out.println("out " + outputString);
 			 } else {
 				 	clearCal();
 			 		System.out.println("Error1");
@@ -173,7 +173,7 @@ public class FractionCalculator{
 							return newFrac;
 						} else if (isWhole(str) == true){
 							str = str + "/1";
-							System.out.println(str);
+					    	System.out.println(str);
 							Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
 							System.out.println(firstFrac);
 							return firstFrac;
@@ -237,8 +237,17 @@ public class FractionCalculator{
 					} else
 					return true;
 		}
+		//Add result onto list.
+		public void addRes(Fraction fraction){
+					String str = fraction.toString();
+					addFractions(str);
+		}
+
 		//calculation method.
 		public Fraction nextCal(Fraction fraction){
+			System.out.println(isFracEmpty());
+			System.out.println(isOpEmpty());
+			System.out.println(fraction);
 			if (isFracEmpty() == false && isOpEmpty() == false && fraction != null){
 				String op = getNextOp();
 				System.out.println("next Op = " + op);
@@ -285,8 +294,9 @@ public class FractionCalculator{
 				return calFrac;
 			} else if (fraction == null && x > 3){
 				fraction = getFirstFraction();
-				Fraction calFrac = nextCal(nextCal(nextCal(fraction)));
+				Fraction calFrac = nextCal(nextCal(fraction));
 				System.out.println("evaluate - 1b");
+				addRes(calFrac);
 				return calFrac;
 			} else if (fraction != null && x > 3){
 				Fraction calFrac = nextCal(nextCal(nextCal(fraction)));
@@ -297,6 +307,7 @@ public class FractionCalculator{
 				System.out.println("fraction " + fraction);
 				System.out.println("evaluate - 2");
 				Fraction calFrac = nextCal(fraction);
+				System.out.println("fractionRes " + fractionRes);
 				return calFrac;
 			}else if (inputString.equals("A")){
 				Fraction calFrac = fractionRes.absValue();
@@ -317,7 +328,9 @@ public class FractionCalculator{
 				System.out.println("evaluate - 3");
 				return null;
 			} else if (fraction == null && x == 1 && inputString.length() >= 3){
-				System.out.println("evaluate - 4");
+				System.out.println("evaluate - 4 " + inputString);
+				System.out.println("fractionRes " + fractionRes);
+				System.out.println("fraction " + fraction);
 				Fraction newFrac = new Fraction(newNumerator(inputString), newDenominator(inputString));
 				fractionRes = newFrac;
 				return null;
@@ -329,10 +342,11 @@ public class FractionCalculator{
 				singleInCount++;
 				return calFrac;
 			} else if (fraction != null && inputString.length() >= 3 && singleInCount >= 1){
-				System.out.println("evaluate - 6" + inputString);
+				System.out.println("evaluate - 6 " + inputString);
 				System.out.println("fractionRes " + fractionRes);
 				System.out.println("fraction " + fraction);
 				Fraction calFrac = nextCal(fraction);
+				addRes(calFrac);
 				fractionRes = calFrac;
 				return calFrac;
 			} else {

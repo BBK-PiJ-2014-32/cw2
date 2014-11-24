@@ -167,7 +167,7 @@ public class FractionCalculator{
 		public void addOperators(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() == 1){
+						if (splitFrac[i].length() == 1 && (!splitFrac[i].equals("A"))){
 							operatorList.add(splitFrac[i]);
 						}
 					}
@@ -289,7 +289,8 @@ public class FractionCalculator{
 			int x  = inputStringLength(inputString);
 			if (fraction == null && x == 3){
 				System.out.println("evaluate - 1a");
-				Fraction calFrac = firstCal();
+				fraction = getFirstFraction();
+				Fraction calFrac = nextCal(fraction);
 				return calFrac;
 			} else if (fraction == null && x > 3){
 				fraction = getFirstFraction();
@@ -309,12 +310,16 @@ public class FractionCalculator{
 			}else if (inputString.equals("A")){
 				Fraction calFrac = fractionRes.absValue();
 				fractionRes = calFrac;
-				getNextOp();
+				String str = fractionRes.toString();
+				addFractions(str);
+				//getNextOp();
 				return calFrac;
 			}else if (inputString.equals("N")){
 				Fraction calFrac = fractionRes.negate();
 				fractionRes = calFrac;
-				getNextOp();
+				String str = fractionRes.toString();
+				addFractions(str);
+				//getNextOp();
 				return calFrac;
 			}else if (inputString.equals("C")){
 				fractionRes = null;

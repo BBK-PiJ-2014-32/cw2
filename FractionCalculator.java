@@ -10,6 +10,7 @@ public class FractionCalculator{
 	private Fraction fractionRes;
 	private String operator;
 	private String nextOperator;
+	private int singleInCount = 0;
 	private String[] fractionArr = new String[10];
 	private String[] operatorArr = new String[10];
 	private ArrayList<String> fractionList = new ArrayList<String>();
@@ -95,7 +96,11 @@ public class FractionCalculator{
 					String outputString = fraction.toString();
  					System.out.println(outputString);
 			 } else {
+ 					fractionRes = null;
+ 					fractionList.clear();
+ 					operatorList.clear(); 
 			 		System.out.println("Error");
+					
 			 }
 		 }
 		//splits the string input into numerator and denominator.
@@ -144,17 +149,6 @@ public class FractionCalculator{
 			String[] splitFrac = str.split("\\s+");
 			return splitFrac.length;
 		}
-		//returns a new string of just the first elements when the user inputs more than 3 elements.
-		public String splitFirstThree(String str){
-			String newStr = "";
-			String[] splitFrac = str.split("\\s+");
-			if (splitFrac.length > 3){
-				for(int i = 0; i < 3; i++){
-					newStr = newStr + " " + splitFrac[i];
-					newStr = newStr.trim();	
-					}	
-			}return newStr;
-		}
 		public void addFractions(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
@@ -168,8 +162,13 @@ public class FractionCalculator{
 						for(int i = 0; i < splitFrac.length; i++){ 
 						if(splitFrac[i].equals("A")){ 
 						} else if (splitFrac[i].equals("N")){
-						} else if (splitFrac[i].length() == 1){
+						} else if (splitFrac[i].equals("+")||splitFrac[i].equals("-")||splitFrac[i].equals("*")||splitFrac[i].equals("/")){
 							operatorList.add(splitFrac[i]);
+						} else if (splitFrac[i].length() == 1){
+		 					fractionRes = null;
+		 					fractionList.clear();
+		 					operatorList.clear(); 
+					 		System.out.println("Error");
 						}
 					}
 		}
@@ -246,8 +245,10 @@ public class FractionCalculator{
 				return calFrac;
 			} else {
 				System.out.println("Input Error!");
+				fractionRes = null;
 				fractionList.clear();
 				operatorList.clear();
+
 			}
 			 return null;
 		}
@@ -277,8 +278,10 @@ public class FractionCalculator{
 				return calFrac;
 			} else {
 				System.out.println("Input Error!");
+				fractionRes = null;
 				fractionList.clear();
 				operatorList.clear();
+
 			} return null;
 		}
 	
@@ -333,13 +336,21 @@ public class FractionCalculator{
 				Fraction newFrac = new Fraction(newNumerator(inputString), newDenominator(inputString));
 				fractionRes = newFrac;
 				return null;
-			} else if (fraction != null && inputString.length() >= 3){
+			} else if ((fraction != null) && (inputString.length() >= 3) && (singleInCount == 0)){
 				System.out.println("evaluate - 5");
 				getNextFrac();
 				Fraction calFrac = nextCal(fraction);
+				fractionRes = calFrac;
+				singleInCount++;
 				return calFrac;
+			} else if (fraction != null && inputString.length() >= 3 && singleInCount >= 1){
+				System.out.println("evaluate - 6");
+				Fraction calFrac = nextCal(fraction);
+				fractionRes = calFrac;
+				return calFrac;	
 			} else {
 				System.out.println("Input Error!");
+				fractionRes = null;
 				fractionList.clear();
 				operatorList.clear();
 			}

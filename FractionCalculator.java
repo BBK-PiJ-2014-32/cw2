@@ -23,8 +23,7 @@ public class FractionCalculator{
 			this.fractionArr = fractionArr;
 			this.operatorArr = operatorArr;
 			this.fractionList = fractionList;
-			this.operatorList = operatorList; 
-			
+			this.operatorList = operatorList; 	
 		}
 		
 		 public static void main(String[] args) {
@@ -40,7 +39,7 @@ public class FractionCalculator{
 			 System.out.println("any operators should be preceeded and followed by a ");
 			 System.out.println("space. The absolute value of a fraction can be found by");
 			 System.out.println("typing A, to negate the fraction type N, to clear ");
-			 System.out.println("the value in the calculator input clr and to quit type Q.");
+			 System.out.println("the value in the calculator input C and to quit type Q.");
 			 System.out.println("--------------------------------------------------------");
 			 System.out.println("Please type your first input to start");
 			 boolean finished = false;
@@ -167,7 +166,9 @@ public class FractionCalculator{
 		public void addOperators(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() == 1 && (!splitFrac[i].equals("A"))){
+						if(splitFrac[i].equals("A")){ 
+						} else if (splitFrac[i].equals("N")){
+						} else if (splitFrac[i].length() == 1){
 							operatorList.add(splitFrac[i]);
 						}
 					}
@@ -312,14 +313,12 @@ public class FractionCalculator{
 				fractionRes = calFrac;
 				String str = fractionRes.toString();
 				addFractions(str);
-				//getNextOp();
 				return calFrac;
 			}else if (inputString.equals("N")){
 				Fraction calFrac = fractionRes.negate();
 				fractionRes = calFrac;
 				String str = fractionRes.toString();
 				addFractions(str);
-				//getNextOp();
 				return calFrac;
 			}else if (inputString.equals("C")){
 				fractionRes = null;

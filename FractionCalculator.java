@@ -97,7 +97,7 @@ public class FractionCalculator{
 		 public void printOutRes(Fraction fraction){
 			 if (fraction != null){
 					String outputString = fraction.toString();
- 					System.out.println("out " + outputString);
+ 					System.out.println("out + " + outputString);
 			 } else {
 				 	clearCal();
 			 		System.out.println("Error1");
@@ -176,9 +176,9 @@ public class FractionCalculator{
 							return newFrac;
 						} else if (isWhole(str) == true){
 							str = str + "/1";
-					    	System.out.println(str);
+					    	//System.out.println(str);
 							Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
-							System.out.println(firstFrac);
+							//System.out.println(firstFrac);
 							return firstFrac;
 					}return null;
 		}
@@ -229,7 +229,7 @@ public class FractionCalculator{
 			        Iterator<String> iterator = fractionList.iterator();
 					if (iterator.hasNext() == true){
 						return false;
-					} else
+					}
 					return true;
 		}
 		//checks if array list of operators is empty.
@@ -237,7 +237,7 @@ public class FractionCalculator{
 			        Iterator<String> iterator = operatorList.iterator();
 					if (iterator.hasNext() == true){
 						return false;
-					} else
+					}
 					return true;
 		}
 		//Add result onto list.
@@ -263,7 +263,6 @@ public class FractionCalculator{
 				} else if (op.equals("-")){
 					Fraction nextFrac = getSecondFraction();
 					Fraction calFrac = fraction.subtraction(nextFrac);
-					System.out.println(calFrac);
 					fractionRes = calFrac;
 					return calFrac;
 				}else if (op.equals("/")){

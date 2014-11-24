@@ -52,25 +52,25 @@ public class FractionCalculator{
 							finished = true;
 					} else if (inputString.equals("A")){
 							Fraction f1 = evaluate(fractionRes, inputString);
-							String outputString = f1.toString();
-				 			System.out.println(outputString);		
+							printOutRes(f1);		
 					} else if (inputString.equals("C")){
 							Fraction f1 = evaluate(fractionRes, inputString);
 							System.out.println(fractionRes);
 					}else if (inputString.equals("N")){
 						   	Fraction f1 = evaluate(fractionRes, inputString);
 						   	System.out.println(fractionRes);
-					} else if (x == 3){
-							System.out.println("main - 1");
+					}else if (x > 3){
+							System.out.println("main - 1a");
 							Fraction f1 = evaluate(fractionRes, inputString);
-							String outputString = f1.toString();
-			 				System.out.println(outputString);
+							printOutRes(f1);
+					}else if (x == 3){
+							System.out.println("main - 1b");
+							Fraction f1 = evaluate(fractionRes, inputString);
+							printOutRes(f1);
 					} else if (x == 2){
 							System.out.println("main - 2");
 							Fraction f1 = evaluate(fractionRes, inputString);
-							System.out.println(fractionRes);
-							String outputString = f1.toString();
-			 				System.out.println(outputString);
+							printOutRes(f1);
 					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && (!inputString.equals("Q"))){
 							System.out.println("main - 3a");
 							evaluate(fractionRes, inputString);
@@ -86,12 +86,22 @@ public class FractionCalculator{
 					} else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == false){
  							System.out.println("main - 6");
 							Fraction f1 = evaluate(fractionRes, inputString);
-							String outputString = f1.toString();
-			 				System.out.println(outputString);
+							printOutRes(f1);
 					
 					}
 				}
 		 }
+		 
+		 public void printOutRes(Fraction fraction){
+			 if (fraction != null){
+					String outputString = fraction.toString();
+ 					System.out.println(outputString);
+			 } else {
+			 		System.out.println("Error");
+			 }
+		 }
+		 
+		 
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;

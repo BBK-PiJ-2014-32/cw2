@@ -1,9 +1,9 @@
 import java.util.StringTokenizer;
-import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Scanner;
+
 
 public class FractionCalculator{
 	private Fraction fraction;
@@ -11,8 +11,6 @@ public class FractionCalculator{
 	private String operator;
 	private String nextOperator;
 	private int singleInCount = 0;
-	private String[] fractionArr = new String[10];
-	private String[] operatorArr = new String[10];
 	private ArrayList<String> fractionList = new ArrayList<String>();
 	private ArrayList<String> operatorList = new ArrayList<String>();
 	
@@ -21,8 +19,6 @@ public class FractionCalculator{
 			this.fractionRes = fractionRes;
 			this.operator = "";
 			this.nextOperator = "";
-			this.fractionArr = fractionArr;
-			this.operatorArr = operatorArr;
 			this.fractionList = fractionList;
 			this.operatorList = operatorList; 	
 		}
@@ -41,7 +37,6 @@ public class FractionCalculator{
 			 System.out.println("space. The absolute value of a fraction can be found by");
 			 System.out.println("typing A, to negate the fraction type N, to clear ");
 			 System.out.println("the value in the calculator input C and to quit type Q.");
-			 System.out.println("--------------------------------------------------------");
 			 System.out.println("Please type your first input to start");
 			 boolean finished = false;
 			 	while (!finished){
@@ -71,17 +66,19 @@ public class FractionCalculator{
 							System.out.println("main - 2");
 							Fraction f1 = evaluate(fractionRes, inputString);
 							printOutRes(f1);
-					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && (!inputString.equals("Q"))){
+					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && isNumeric(inputString) == false /*&& (!inputString.equals("Q"))*/){
 							System.out.println("main - 3a");
 							evaluate(fractionRes, inputString);
-					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && !inputString.equals("A")){
+					} else if (x == 1 && inputString.length() == 1 && isOpEmpty() == true && isNumeric(inputString) == true/*&& !inputString.equals("A")*/){
+							inputString = inputString + "/1";
 							System.out.println("main - 3b");
+							System.out.println(inputString);
 							evaluate(fractionRes, inputString);
 					} else if (x == 1 && inputString.length() >= 3 && isFracEmpty() == true){
 							System.out.println("main - 4");
 							Fraction f1 = evaluate(fractionRes, inputString);
 							//printOutRes(f1);
-					} else if ((x == 1 && inputString.length() == 1 && isOpEmpty() == false) && !inputString.equals("Q")){
+					} else if ((x == 1 && inputString.length() == 1 && isOpEmpty() == false && isNumeric(inputString) == false) /*&& !inputString.equals("Q")*/){
 							System.out.println("main - 5");
 							Fraction f1 = evaluate(fractionRes, inputString);
 							printOutRes(f1);
@@ -104,6 +101,24 @@ public class FractionCalculator{
 			 		System.out.println("Error1");	
 			 }
 		 }
+		 //checks if single inputs are numeric or operator.
+		 public boolean isNumeric(String inputString){
+			 if(Character.isDigit(inputString.charAt(0))){
+				 return true;
+			 }
+				 return false;
+		 }
+		 //checks for whole numbers when creating fractions.
+		 public boolean isWhole(String inputString){
+			 Scanner scan = new Scanner(inputString);
+			 while(scan.hasNext()){
+				 if (scan.hasNextInt() == true){
+					 return true;
+				 }
+			 }
+			 scan.close(); 
+			 return false;
+		 } 
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;
@@ -131,11 +146,14 @@ public class FractionCalculator{
 			return newDenom;
 		}
 		public Fraction getFirstFraction(){
-					String str = getNextFrac();
-						if (str.length() >= 3){
-								Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
-								return firstFrac;
-					} return null;
+			String str = getNextFrac();
+				if (str.length() >= 3){
+						Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
+						return firstFrac;
+				} else if (isWhole(str) == true){
+						Fraction firstFrac = new Fraction(newNumerator(str), newDenominator("1"));
+						return firstFrac;		
+				} return null;
 			}
 		
 		public Fraction getSecondFraction(){
@@ -153,7 +171,7 @@ public class FractionCalculator{
 		public void addFractions(String str){
 			String[] splitFrac = str.split("\\s+");
 						for(int i = 0; i < splitFrac.length; i++){ 
-						if (splitFrac[i].length() >= 3){
+						if (splitFrac[i].length() >= 3 || isNumeric(splitFrac[i]) == true){
 							fractionList.add(splitFrac[i]);
 						}
 					}
@@ -166,6 +184,7 @@ public class FractionCalculator{
 						} else if (splitFrac[i].equals("C")){
 						} else if (splitFrac[i].equals("+")||splitFrac[i].equals("-")||splitFrac[i].equals("*")||splitFrac[i].equals("/")){
 							operatorList.add(splitFrac[i]);
+						} else if (isNumeric(splitFrac[i]) == true){
 						} else if (splitFrac[i].length() == 1){
 		 					fractionRes = null;
 		 					fractionList.clear();
@@ -174,17 +193,6 @@ public class FractionCalculator{
 						}
 					}
 		}
-		
-		/*public String getOperator(String str){
-			StringTokenizer st = new StringTokenizer(str, " ");
-						while (st.hasMoreTokens()){
-						String strIn = st.nextToken();
-						if (strIn.length() == 1){
-							operator = strIn;
-							return operator;
-						}
-					}return operator;
-				}*/
 		//Returns next fraction and removes it from the arraylist
 		public String getNextFrac(){
 			        Iterator<String> iterator = fractionList.iterator();
@@ -204,7 +212,7 @@ public class FractionCalculator{
 					String str = iterator.next();
 					return str;
 		} */
-			
+		//checks if array list of fractions is empty.	
 		public boolean isFracEmpty(){
 			        Iterator<String> iterator = fractionList.iterator();
 					if (iterator.hasNext() == true){
@@ -212,7 +220,7 @@ public class FractionCalculator{
 					} else
 					return true;
 		} 
-		
+		//checks if array list of operators is empty.
 		public boolean isOpEmpty(){
 			        Iterator<String> iterator = operatorList.iterator();
 					if (iterator.hasNext() == true){
@@ -222,36 +230,36 @@ public class FractionCalculator{
 		} 
 		//calculation method.
 		public Fraction nextCal(Fraction fraction){
-			if (isFracEmpty()==false && isOpEmpty() == false && fraction != null){
-			String op = getNextOp();
-			System.out.println("next Op = " + op);
-			if (op.equals("+")){
-				Fraction nextFrac = getSecondFraction();
-				Fraction calFrac = fraction.addition(nextFrac);
-				fractionRes = calFrac;
-				return calFrac;
-			} else if (op.equals("-")){
-				Fraction nextFrac = getSecondFraction();
-				Fraction calFrac = fraction.subtraction(nextFrac);
-				System.out.println(calFrac);
-				fractionRes = calFrac;
-				return calFrac;
-			}else if (op.equals("/")){
-				Fraction nextFrac = getSecondFraction();
-				Fraction calFrac = fraction.divide(nextFrac);
-				fractionRes = calFrac;
-				return calFrac;
-			}else if (op.equals("*")){
-				Fraction nextFrac = getSecondFraction();
-				Fraction calFrac = fraction.multiply(nextFrac);
-				fractionRes = calFrac;
-				return calFrac;
-			} else {
-				System.out.println("Error3");
-				fractionRes = null;
-				fractionList.clear();
-				operatorList.clear();
-			} 
+			if (isFracEmpty() == false && isOpEmpty() == false && fraction != null){
+				String op = getNextOp();
+				System.out.println("next Op = " + op);
+				if (op.equals("+")){
+					Fraction nextFrac = getSecondFraction();
+					Fraction calFrac = fraction.addition(nextFrac);
+					fractionRes = calFrac;
+					return calFrac;
+				} else if (op.equals("-")){
+					Fraction nextFrac = getSecondFraction();
+					Fraction calFrac = fraction.subtraction(nextFrac);
+					System.out.println(calFrac);
+					fractionRes = calFrac;
+					return calFrac;
+				}else if (op.equals("/")){
+					Fraction nextFrac = getSecondFraction();
+					Fraction calFrac = fraction.divide(nextFrac);
+					fractionRes = calFrac;
+					return calFrac;
+				}else if (op.equals("*")){
+					Fraction nextFrac = getSecondFraction();
+					Fraction calFrac = fraction.multiply(nextFrac);
+					fractionRes = calFrac;
+					return calFrac;
+				} else {
+					System.out.println("Error3");
+					fractionRes = null;
+					fractionList.clear();
+					operatorList.clear();
+				} 
 		} else {
 			System.out.println("Error4");
 			fractionRes = null;

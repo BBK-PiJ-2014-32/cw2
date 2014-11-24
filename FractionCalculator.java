@@ -87,11 +87,10 @@ public class FractionCalculator{
  							System.out.println("main - 6");
 							Fraction f1 = evaluate(fractionRes, inputString);
 							printOutRes(f1);
-					
 					}
 				}
 		 }
-		 
+		 //Checks output and if present prints it out on screen.
 		 public void printOutRes(Fraction fraction){
 			 if (fraction != null){
 					String outputString = fraction.toString();
@@ -100,8 +99,6 @@ public class FractionCalculator{
 			 		System.out.println("Error");
 			 }
 		 }
-		 
-		 
 		//splits the string input into numerator and denominator.
 		public int newNumerator(String str){
 			char a;
@@ -291,8 +288,17 @@ public class FractionCalculator{
 			addOperators(inputString);
 			int x  = inputStringLength(inputString);
 			if (fraction == null && x == 3){
-				System.out.println("evaluate - 1");
+				System.out.println("evaluate - 1a");
 				Fraction calFrac = firstCal();
+				return calFrac;
+			} else if (fraction == null && x > 3){
+				fraction = getFirstFraction();
+				Fraction calFrac = nextCal(nextCal(fraction));
+				System.out.println("evaluate - 1b");
+				return calFrac;
+			} else if (fraction != null && x > 3){
+				Fraction calFrac = nextCal(nextCal(fraction));
+				System.out.println("evaluate - 1c");
 				return calFrac;
 			} else if (fraction != null && x >= 2){
 				System.out.println("fractionRes " + fractionRes);

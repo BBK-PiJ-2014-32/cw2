@@ -147,11 +147,15 @@ public class FractionCalculator{
 		}
 		public Fraction getFirstFraction(){
 			String str = getNextFrac();
+			System.out.println(str);
 				if (str.length() >= 3){
 						Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
 						return firstFrac;
 				} else if (isWhole(str) == true){
-						Fraction firstFrac = new Fraction(newNumerator(str), newDenominator("1"));
+						str = str + "/1";
+						System.out.println(str);
+						Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
+						System.out.println(firstFrac);
 						return firstFrac;		
 				} return null;
 			}
@@ -207,11 +211,6 @@ public class FractionCalculator{
 					iterator.remove();
 					return str;
 		} 
-		/*public String getNextOpNoDel(){
-			        Iterator<String> iterator = operatorList.iterator();
-					String str = iterator.next();
-					return str;
-		} */
 		//checks if array list of fractions is empty.	
 		public boolean isFracEmpty(){
 			        Iterator<String> iterator = fractionList.iterator();

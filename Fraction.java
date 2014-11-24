@@ -11,7 +11,7 @@ public class Fraction {
             System.out.println("Invalid fraction with denominator 0");
 	    // this should use exceptions
             return;
-        }
+        } 
         int gcd = myGcd(num, denom);
         setNumerator(num / gcd);
         setDenominator(denom / gcd);

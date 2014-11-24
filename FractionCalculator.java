@@ -37,7 +37,8 @@ public class FractionCalculator{
 			 System.out.println("space. The absolute value of a fraction can be found by");
 			 System.out.println("typing A, to negate the fraction type N, to clear ");
 			 System.out.println("the value in the calculator input C and to quit type Q.");
-			 System.out.println("Please type your first input to start");
+			 System.out.println("--------------------------------------------------------");
+			 System.out.println("Please type your first input to start:");
 			 boolean finished = false;
 			 	while (!finished){
 			 	   	String inputString = System.console().readLine();
@@ -170,6 +171,12 @@ public class FractionCalculator{
 						if (str.length() >= 3){
 							Fraction newFrac = new Fraction(newNumerator(str), newDenominator(str));
 							return newFrac;
+						} else if (isWhole(str) == true){
+							str = str + "/1";
+							System.out.println(str);
+							Fraction firstFrac = new Fraction(newNumerator(str), newDenominator(str));
+							System.out.println(firstFrac);
+							return firstFrac;
 					}return null;
 		}
 		//counts the number of elements in the the input string.
@@ -278,11 +285,11 @@ public class FractionCalculator{
 				return calFrac;
 			} else if (fraction == null && x > 3){
 				fraction = getFirstFraction();
-				Fraction calFrac = nextCal(nextCal(fraction));
+				Fraction calFrac = nextCal(nextCal(nextCal(fraction)));
 				System.out.println("evaluate - 1b");
 				return calFrac;
 			} else if (fraction != null && x > 3){
-				Fraction calFrac = nextCal(nextCal(fraction));
+				Fraction calFrac = nextCal(nextCal(nextCal(fraction)));
 				System.out.println("evaluate - 1c");
 				return calFrac;
 			} else if (fraction != null && x >= 2){
